@@ -1296,7 +1296,7 @@ main =
               "SELECT char_length(\"users\".\"name\") AS \"name_len_alias\" FROM \"users\" AS \"users\""
           checkStatement squealRendering stmt
 
-        it "select \"upper\"(users.name) as upper_name from users" $ do
+        it "select upper(users.name) as upper_name from users" $ do
           let
             stmt :: Statement DB () (Field "upper_name" Text, ())
             stmt = [ssql| select upper(users.name) as upper_name from users |]
