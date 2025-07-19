@@ -7,8 +7,9 @@
   * with to_delete as (select id from users where name = 'Alice') delete from users where id in (select to_delete.id from to_delete) [✔]
   * with to_delete as (select id from users where name = 'Alice') delete from users using to_delete where users.id = to_delete.id [✔]
   * with to_update as (select id from users where name = 'Alice') update users set name = 'Alicia' from to_update where users.id = to_update.id [✔]
+
 * Support `IN` subqueries.
-  * with to_delete as (select id from users where name = 'Alice') delete from users where id in (select to_delete.id from to_delete) [✔]
+  * select * from users where users.id in (select emails.user_id from emails) [✔]
 
 ### 0.1.0.0
 
