@@ -1299,7 +1299,7 @@ main =
         it "select \"upper\"(users.name) as upper_name from users" $ do
           let
             stmt :: Statement DB () (Field "upper_name" Text, ())
-            stmt = [ssql| select "upper"(users.name) as upper_name from users |]
+            stmt = [ssql| select upper(users.name) as upper_name from users |]
             squealRendering :: Text
             squealRendering =
               "SELECT upper(\"users\".\"name\") AS \"upper_name\" FROM \"users\" AS \"users\""
