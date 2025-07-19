@@ -1,12 +1,12 @@
 ### 0.1.1.0
 
 * Support common table expressions (CTEs).
-  * with users_cte as (select * from users) select * from users_cte [✔]
-  * with users_cte as (select * from users), emails_cte as (select * from emails) select users_cte.*, emails_cte.email from users_cte join emails_cte on users_cte.id = emails_cte.user_id [✔]
-  * with new_user (id, name, bio) as (values ('id_new', 'new_name', 'new_bio')) insert into users_copy select * from new_user [✔]
-  * with to_delete as (select id from users where name = 'Alice') delete from users where id in (select to_delete.id from to_delete) [✔]
-  * with to_delete as (select id from users where name = 'Alice') delete from users using to_delete where users.id = to_delete.id [✔]
-  * with to_update as (select id from users where name = 'Alice') update users set name = 'Alicia' from to_update where users.id = to_update.id [✔]
+  * `with users_cte as (select * from users) select * from users_cte [✔]`
+  * `with users_cte as (select * from users), emails_cte as (select * from emails) select users_cte.*, emails_cte.email from users_cte join emails_cte on users_cte.id = emails_cte.user_id [✔]`
+  * `with new_user (id, name, bio) as (values ('id_new', 'new_name', 'new_bio')) insert into users_copy select * from new_user [✔]`
+  * `with to_delete as (select id from users where name = 'Alice') delete from users where id in (select to_delete.id from to_delete) [✔]`
+  * `with to_delete as (select id from users where name = 'Alice') delete from users using to_delete where users.id = to_delete.id [✔]`
+  * `with to_update as (select id from users where name = 'Alice') update users set name = 'Alicia' from to_update where users.id = to_update.id [✔]`
 
 * Support `IN` subqueries.
   * select * from users where users.id in (select emails.user_id from emails) [✔]
