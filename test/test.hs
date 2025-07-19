@@ -1296,10 +1296,10 @@ main =
               "SELECT char_length(\"users\".\"name\") AS \"name_len_alias\" FROM \"users\" AS \"users\""
           checkStatement squealRendering stmt
 
-        it "select upper(users.name) as upper_name from users" $ do
+        it "select \"upper\"(users.name) as upper_name from users" $ do
           let
             stmt :: Statement DB () (Field "upper_name" Text, ())
-            stmt = [ssql| select upper(users.name) as upper_name from users |]
+            stmt = [ssql| select "upper"(users.name) as upper_name from users |]
             squealRendering :: Text
             squealRendering =
               "SELECT upper(\"users\".\"name\") AS \"upper_name\" FROM \"users\" AS \"users\""
@@ -1373,6 +1373,21 @@ main =
           squealRendering :: Text
           squealRendering =
             "SELECT * FROM \"users\" AS \"users\" WHERE \"users\".\"name\" IN ((E'Alice' :: text), (E'Bob' :: text))"
+        checkStatement squealRendering stmt
+
+      it "select * from users where users.id in (select user_id from emails)" $ do
+        let
+          stmt
+            :: Statement
+                 DB
+                 ()
+                 ( Field "id" Text
+                 , (Field "name" Text, (Field "employee_id" UUID, (Field "bio" (Maybe Text), ())))
+                 )
+          stmt = [ssql| select * from users where users.id in (select user_id from emails) |]
+          squealRendering :: Text
+          squealRendering =
+            "SELECT * FROM \"users\" AS \"users\" WHERE (\"users\".\"id\" = ANY (SELECT \"user_id\" AS \"user_id\" FROM \"emails\" AS \"emails\"))"
         checkStatement squealRendering stmt
 
       it "select * from users where users.name not in ('Alice', 'Bob')" $ do
