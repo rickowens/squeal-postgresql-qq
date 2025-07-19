@@ -9,7 +9,7 @@
   * `with to_update as (select id from users where name = 'Alice') update users set name = 'Alicia' from to_update where users.id = to_update.id` [✔]
 
 * Support `IN` subqueries.
-  * select * from users where users.id in (select emails.user_id from emails) [✔]
+  * `select * from users where users.id in (select emails.user_id from emails)` [✔]
 
 ### 0.1.0.0
 
