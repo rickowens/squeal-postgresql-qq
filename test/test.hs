@@ -1375,7 +1375,7 @@ main =
             "SELECT * FROM \"users\" AS \"users\" WHERE \"users\".\"name\" IN ((E'Alice' :: text), (E'Bob' :: text))"
         checkStatement squealRendering stmt
 
-      it "select * from users where users.id in (select user_id from emails)" $ do
+      it "select * from users where users.id in (select emails.user_id from emails)" $ do
         let
           stmt
             :: Statement
