@@ -270,6 +270,9 @@ scalar expressions
     select name, row_number() over () as rn from users [✔]
     select name, rank() over (partition by employee_id order by name) as r from users [✔]
     select email, sum(id) over (partition by user_id) as user_total from emails [✔]
+    select email, avg(id) over (partition by user_id) as user_avg from emails [✔]
+    select email, min(id) over (partition by user_id) as user_min from emails [✔]
+    select email, max(id) over (partition by user_id) as user_max from emails [✔]
     select name, row_number() over (order by name), rank() over (order by name) from users [✔]
     select name, row_number() over (partition by employee_id order by name), rank() over (order by name) from users [✔]
 ```
